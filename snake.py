@@ -10,24 +10,28 @@ Snake.penup()
 global direction
 direction = "right"
 def up():
-    Snake.sety(Snake.ycor())
     global direction
-    direction = "up"
+    if direction != "down":
+        Snake.sety(Snake.ycor())
+        direction = "up"
 
 def down():
-    Snake.sety(Snake.ycor())
     global direction
-    direction = "down"
+    if direction != "up":
+        Snake.sety(Snake.ycor())
+        direction = "down"
 
 def left():
-    Snake.forward(-0.01)
     global direction
-    direction = "left"
+    if direction != "right":
+        Snake.forward(-0.01)
+        direction = "left"
 
 def right():
-    Snake.forward(0.01)
     global direction
-    direction = "right"
+    if direction != "left":
+        Snake.forward(+0.01)
+        direction = "right"
         
 def move(direction):
     match (direction):
