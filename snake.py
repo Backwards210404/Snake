@@ -3,46 +3,54 @@ from turtle import *
 import time
 
 
-
-
-
 snake = Turtle()
 snake.shape('square')
 snake.color('green')
-snake.up()
+snake.up()           
 
-def checkdirection(direction, snake):
-    match (direction):
-        case("right"):
-            direction = "left"
-            return snake.left(90)
-        case("left"):
-            direction = "right"
-            return snake.right(90)
-            
+def move(key, snake, direction):
     
-def move(key, snake):
-    direction = "right"
     snake.speed(0)
     match (key):
         case("w"):
-            checkdirection(direction, snake)
-            return snake.forward(50)
+            if (direction == "right"):
+                snake.left(90)
+            elif (direction == "left"):
+                snake.right(90)
+            snake.forward(50)
+            direction = "up"
+            return direction
         case("d"):
-            checkdirection(direction, snake)
-            return snake.forward(50)
+            if (direction == "up"):
+                snake.right(90)
+            elif (direction == "down"):
+                snake.left(90)
+            snake.forward(50)
+            direction = "right"
+            return direction
         case("s"):
-            checkdirection(direction, snake)
+            if (direction == "right"):
+                snake.right(90)
+            elif (direction == "left"):
+                snake.left(90)
+            snake.forward(50)
+            direction = "down"
+            return direction
         case("a"):
-            checkdirection(direction, snake)
-            return snake.forward(50)
+            if (direction == "up"):
+                snake.left(90)
+            elif (direction == "down"):
+                snake.right(90)
+            snake.forward(50)
+            direction = "left"
+            return direction
         case default:
-            return snake.forward(50)
+            snake.forward(50)
 
 
 
+direction = "right" 
 while True != False:
     key = keyboard.read_key()
-    move(key, snake)
+    direction = move(key, snake, direction)
     time.sleep(1)
-    
