@@ -1,56 +1,51 @@
-import keyboard
-from turtle import *
-import time
+import turtle
+window = turtle.Screen()
+window.bgcolor('dark salmon')
+window.tracer(0)
 
+Snake = turtle.Turtle()
+Snake.shape('square')
+Snake.color('green')
+Snake.penup()           
+global direction
+direction = "right"
+def up():
+    Snake.sety(Snake.ycor())
+    global direction
+    direction = "up"
 
-snake = Turtle()
-snake.shape('square')
-snake.color('green')
-snake.up()           
+def down():
+    Snake.sety(Snake.ycor())
+    global direction
+    direction = "down"
 
-def move(key, snake, direction):
-    
-    snake.speed(0)
-    match (key):
-        case("w"):
-            if (direction == "right"):
-                snake.left(90)
-            elif (direction == "left"):
-                snake.right(90)
-            snake.forward(50)
-            direction = "up"
-            return direction
-        case("d"):
-            if (direction == "up"):
-                snake.right(90)
-            elif (direction == "down"):
-                snake.left(90)
-            snake.forward(50)
-            direction = "right"
-            return direction
-        case("s"):
-            if (direction == "right"):
-                snake.right(90)
-            elif (direction == "left"):
-                snake.left(90)
-            snake.forward(50)
-            direction = "down"
-            return direction
-        case("a"):
-            if (direction == "up"):
-                snake.left(90)
-            elif (direction == "down"):
-                snake.right(90)
-            snake.forward(50)
-            direction = "left"
-            return direction
-        case default:
-            snake.forward(50)
+def left():
+    Snake.forward(-0.01)
+    global direction
+    direction = "left"
 
+def right():
+    Snake.forward(0.01)
+    global direction
+    direction = "right"
+        
+def move(direction):
+    match (direction):
+        case ("right"):
+            Snake.forward(0.01)
+        case("up"):
+            Snake.sety(Snake.ycor()+0.01)
+        case("down"):
+            Snake.sety(Snake.ycor()-0.01)
+        case("left"):
+            Snake.forward(-0.01)
 
+window.onkeypress(up, "Up")
+window.onkeypress(down, "Down")
+window.onkeypress(right, "Right")
+window.onkeypress(left, "Left")
+print(window.listen())
 
-direction = "right" 
-while True != False:
-    key = keyboard.read_key()
-    direction = move(key, snake, direction)
-    time.sleep(1)
+while True:
+  move(direction)
+  window.update()
