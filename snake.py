@@ -1,14 +1,18 @@
 import turtle
 window = turtle.Screen()
-window.bgcolor('dark salmon')
+window.bgcolor('orange')
 window.tracer(0)
 
-Snake = turtle.Turtle()
-Snake.shape('square')
+Snake = turtle.Turtle("square")
 Snake.color('green')
-Snake.penup()           
+Snake.penup()   
 global direction
 direction = "right"
+
+def createfood():
+    food = turtle.Turtle("round")
+    food.color('red')
+    food.penup()
 def up():
     global direction
     if direction != "down":
@@ -48,8 +52,14 @@ window.onkeypress(up, "Up")
 window.onkeypress(down, "Down")
 window.onkeypress(right, "Right")
 window.onkeypress(left, "Left")
+window.onkeypress(up, "w")
+window.onkeypress(down, "s")
+window.onkeypress(right, "d")
+window.onkeypress(left, "a")
 print(window.listen())
 
 while True:
+  createfood()
   move(direction)
   window.update()
+  
